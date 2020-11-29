@@ -1,0 +1,795 @@
+950609	Hacklog begins anew.
+	Attempting to combine some of the hacks I did earlier with the version
+	that actually works.
+  1826	combined magic[123].c into magic.c and spells[123].c into spells.c.
+  2008	fixed signal handling for Linux.
+  2025	changed default whod to only show character names... not titles.
+  2035	eliminated log(), dlog(), and slog() functions from utils.c.
+	added dlog() macro to bug.h and changed the two slog() calls into
+	standard log() calls.
+  2051	created act_comm.h file for function definitions.
+  2345	restored old database routines so it should load the old format of
+	database.
+950610
+  0145	started removing all external references from all .c files... those
+	should be in header files!!!
+950611
+  0437	use more tricks from the running wiley..... dead bodies now have
+	corpses, and you default to sleeping when you reappear in the inn.
+950614
+  0345	finally fixed a few nagging bugs.  nanny() has been rewritten.
+	old routines like send_to_char() have been replaced with varargs
+	routines like cprintf().  Now all places that used to sprintf to
+	a local scratch var should be redone.... <sigh>.
+	Rent is now done properly.  Pro-rated by the second and rounded
+	to the nearest gold piece (truncated actually).
+	I believe the code is now stable enough to try indenting and
+	removing warnings.  This is now a backup copy that will run
+	on a seperate port for testing, in case I'm wrong!
+  0354	did a global sed on all files:
+s/sbyte/BYTE/g
+s/ubyte/UBYTE/g
+s/sh_int/SHORT/g
+s/ush_int/USHORT/g
+s/byte/BYTE/g
+s/bool/BYTE/g
+  0402	ran all source through indent.
+  0412	It compiled perfectly.... warning debugging can begin tomorrow then!
+950615
+  0300	fixed a bug in suicide.
+	changed prompt and fixed a bug in do_score.
+  0500	changed who format and added more whod options.
+950617
+  0530	made most menus file-based instead of hard-coded.
+	changed group command to only allow the group leader to add
+	people who are +/- 20%+1 of their level... thus a 2nd level
+	character can only group with 1-3rd level.  a 10th level could
+	group with 7-13th, a 40th would be ok with 31-49th.
+	We can adjust this figure if that sounds bad.
+  1120	caused villagers to wake people up on a 25% chance (always if they
+	start following you).
+950618
+  0412	fixed bug in villager code.
+  0446	added argument to score command (for immortals only).
+  0456	began ridding the code of warnings.
+	yywrap.c is clean.
+	bug.c is almost clean:
+global.h:462: warning: function declaration isn't a prototype
+global.h:1144: warning: function declaration isn't a prototype
+	these are from declarations and typedefs of the form:
+	form: foo (*bar)();
+	I don't know an easy and correct way to eliminate them.
+	sound.c is almost clean.
+	hash.c is almost clean.
+	sign.c is almost clean.
+	signals.c is almost clean.
+	added a signals.h header file.
+	magic_utils.c is almost clean.
+  1234	fixed long-standing bug in act(), comm.c.  Checks for invalid
+	character or location when doing a TO_ROOM action.
+  1348	multiclass.c is almost clean.
+  1404	act_social.c is almost clean.
+  1513	changed do_who() command to allow NPC's to use who.
+	Why would an unswitched npc ever use it?
+  1547	trap.c would be clean if character attributes were not chars.
+	We should change them to ints, but to do so would invalidate
+	the player files... so until we get the ASCII save routines
+	done and in place, we can't do anything about it.
+  1701	changed do_look() so that one cannot see outdoors after dark.
+	(if the moon is not new, you can see monsters.)
+950619
+  0331	tweaked do_look() a bit more to allow for dark hours between
+	sunset/moonrise and especially moonset/sunrise.  also changed
+	do_exits() in a similar fashion.
+  0530	a bit more tweaking... added in cloud-cover.
+	also, made hunger and thirst more devastating.  They do damage
+	now and can kill you!
+950621
+  0600	changed switch command to try finding mob in room first.
+	added ascii player save function.... this saves the char_file_u
+	structure, rather than directly from the char_data.  Done for
+	ease of porting for now.... will add read routines later.  Treat
+	this as a report file until they are in.
+  1354	gave immortals the ability to walk through closed doors.
+  1655	found crasher in who routines... when whod ran through the character
+	list, it didn't check for linkdead people, and thus segfaulted when
+	it tried to access their descriptor for the idle time.
+950622
+  1430	Neatened up the door-walk routine a little....
+950623
+  0212	Fixed bugs in score... including sneak bug.
+  0341	got order of class names right.
+950624
+  1830	Fixed bug in score... uncleared buffer made a mess of affects.
+	Made Eli tell evil people he won't heal them instead of just ignoring
+	them... this should help people figure out why he heals villagers but
+	not them after they slaughter lots of children.
+950625
+  0530	Fixed a few more bugs (including pretitle) and neatened up code a bit.
+	Set my room and muidnar's room to be rent areas.
+  1519	Added fuzz(x) function to utils.c.  The returns a random number from
+	-x to x, which can be used to slightly adjust things like zone
+	reset times, etc...
+950626
+  0305	added a red dragon to the polymorph list (wiz only), and fixed the
+	parser for that spell.  Started renaming levels (mage is done).
+950630
+  2100	added "all" argument to restore.. will replace restoreall command.
+	changed hunger again.. you don't lose move now.
+	changed score a bit more....
+	player tracking now complete.
+950701
+  0353	added a reset command to reset zones by hand.
+	added a skeleton event command, which will allow wizards to do
+	complex events with minimal effort... such as loading lots of
+	rats into Shylar, or bringing forth a goblin raid.
+  1654	rat event done.. may need some tuning yet.
+	must be set to NOT load mobs into rooms which are peaceful, or
+	which have no exits.
+950702
+  0600	added a zone purge command.
+	fixed up rat event a bit.... seems ok now.
+	fixed say bug when using ' command.
+950706
+  1330	changed lightning bolt spell damage to be uncapped
+        (L/10+ L/3 + 1)d6.... this provides a slightly lower damage at low
+	levels but considerably higher damage at upper levels.  Unlike magic
+	missile, one should be able to channel more electricity as they get
+	higher (mm has a physical limit on the number of missiles shot).
+	Also changed rat exp worth.
+	Also changed fireball from L/5 to L/3.
+950709
+  2123	Hacked the shit out of the zombie master routines.
+	Added our friendly mosquitos to the game.
+950710
+  0600	Fixed all the bugs I could find in zombie master's new routine.
+	MUCH more intelligent now.
+	added event to bring xenthia and a few followers into the world.
+	be careful around shylar.... highstaff is ok but she won't last
+	long!  OUt in the woods or the mountains is great.
+	Shylar is ok, IF a few higher levels are on to take care of her.
+	EVENTUALLY, code will be written to force her zombie hoard to
+	disperse and attack Shylar when it hits 50 strong.
+	(randomly distribute them throught the shylar zone until they
+	are all gone... make them not follow her... make them aggressive,
+	also make other mobs hate them... so the villagers will help)
+	Added hate flags back to lovitar!
+950717
+  0700	Caught Steve cheating like a dog.  Wasted time dealing with him.
+	Made defines for command numbers, and changed COMMANDO() calls
+	to use them instead of the hard numbers.... This should let us
+	shuffle the order around later and get rid of all the socials.
+	Must go through all the code that is called by them (do_*) and
+	change hard coded numbers to the defines.
+950720
+  0600	Tweaked gain routines a little more.
+	Found tics and reset them to 70 seconds (70 *4 instead of 75 * 5)
+	Added in a line to randomize it by adding 20 seconds.... commented
+	out until I see if the game CAN keep up with 70 second tics.
+	If so, I'll add it in so tics will be 60..80 seconds.
+950721
+  0831	Rewrote tick handling to use seperate counters... this makes it
+	easier to see how long until the next tick occurs.... we will need
+	to synchronize ticks with realtime somehow... I can't find anywhere
+	that does this, so I think that's why it gets so far off.
+	Tweaked a few more numbers.... ticks should now be between
+	70 and 95 seconds... 
+	Added ticks command to give a full summary of tick info.
+	Added feature to tell immortals when the next tick will happen.
+  1715	Caused meat to spoil.
+	Fixed invis level to work as described.
+	Fixed bug in dispel_magic... more to be done.. lots of hardcoding.
+	Possible Muidnar hack fixed :)
+950722
+  0700	Made Eli cast refresh and bless people (make them less evil)
+	Also made him cast fear at anyone > 4th level who was -900 align
+  1842	Did a little bit of the prototyping for future genericism of
+	spellcasting.  rangers seem to have been hacked into casting, instead
+	of changing spell_info_type as should have been done... we'll have
+	to change that later to accomodate druids and future classes.
+950737
+  1720	Hacked in ascii restore files... not fully working yet.
+	also redid who a bit to include start time.
+950728
+  1000	Got ascii save routines to work finally.  Tweaks to axe code and
+	who routines.  bug fixes for do_invis and a couple others.. minor.
+	The save routines are the biggies... we can now edit player files
+	with vi directly.  object save files should be next.
+950729
+  0700	Hopefully have Xenthia coded to disperse most of her army to Shylar
+	when she gets 50 of them!  This will be cool if it works.
+	Fixed a couple more little things.
+950907
+  0506	Yup.. haven't kept loggint thigns :)
+	Added taunting to players who get killed: "A villager mocks..."
+	Cleaned up spells a bit.... up to the c's.
+950919	Quixadhal
+  0630	EEK!  No logs!  Argh!  Ok, fixed astral a bit more....
+	Also changed whod to we level 59ers are something more than just
+	a Whizz... :)
+950922  Sedna
+  0417  Had a really bad day at work and decided to take it out on wiley
+        players... :^)  I made the butler friends with the banker.  That
+        is, if you have less gold on you than what it takes to rent, you
+        can rent with what you have in the bank.  Conversely, if you re-
+        enter the game and ran out of gold in your pocket, the game will
+        deduct the difference from your bank account, telling you:
+        "You ran out of gold and had to make a quick trip to the bank."
+
+        It will call you a deadbeat only after draining both your pocket
+        and your bankbook.  :^)
+951003	Dirk
+  1800	Added cure blindness and remove poison to Eli, but only if you are
+	very good (above 750 align) Right now it's cut and pasted from the
+	other ones, so if you are under 750 and need help, he will either
+	say you are wicked, or bless you. I may change that, so he won't
+	cast bless on you if you are under 750. You'll just need to be that
+	good for him to help you.
+  1950	Added the hack where he won't bless you now if you're under 750, he'll
+	just tell you that you aren't good enough, and he will let you suffer
+951106  Sedna
+  0140  Wrote a line in act_comm.c which sends a message to player when they
+        appear which is identical to the message they receive when invisibility
+        wears off.  "You feel exposed."
+951119	Quixadhal
+  0332	Lots of changes have not been logged... Here are a few.
+	o	Modified group code so that it works correctly.
+		People can group withing lvl/2 of their leader.
+		group members no longer get pasted by area affects.
+		exp is PROPERLY distributed to all group members, but
+		people who are not in the room will get 1/10 of their share.
+		NOTE: the other 9/10 is LOST as a penalty for the rest of
+		the group to discourage wimps and slackers.
+	o	summoning/animate spells now have a chance of making the
+		target turn on the caster.... wouldn't YOU be pissed?
+	o	colour-spray can paralyze very low level monsters.
+	o	meat spoils and becomes poisonous.
+	o	a village guard patrols shylar.
+	o	charm monster/charm person are now based on the humanoid
+		status of the target.
+	o	registered players get a 10% exp bonus, but can no longer
+		disable summon or teleport.  Also, anyone can now tell
+		a reg'd player by looking at them.
+	o	added a rentmode command to enable/disable rent costs.
+		it should eventually save the state in a file, but for
+		now you can toggle it by hand.
+	o	added more parameters to pset command.
+	o	removed nasties that had energy_drain spells from the
+		undead mobs in event undead.... that was too much.
+	o	probably more changes that I can't recall.. but that's what
+		I get for ignoring logs.... let's all promise to be nice
+		hackers and keep this file up to date ok?
+  0518	Added messages for rebooting... also neatened up the time command.
+	Made Eli turn undead.
+	Should change spell_turn() in magic.c so that:
+		if the caster is good and they are maybe twice as high level
+		as the mob, the mob should be killed instead of forced to
+		flee.
+		if the caster is evil and they are twice as high, the mob
+		should become a follower for a limited duration.
+		(IE: charm monster)
+951125	Quixadhal
+  1944	Hacked comm.c to retry socket initialization every second for a minute.
+951130  Sedna
+        Modified the act_mobile to stop a mob from following a player after
+		their charm wears off.
+	Modified the puke function so that instead of a simple emote, it
+		actually deducts 2 from the player's fullness and does one
+		point of hit damage for puking.
+951203	Quixadhal
+  2102	Fixed puke and exempted gods from the damaging effects.
+	Reclaimed immortal status for myself alone while the minor Gods
+	shuffle and fight amongst themselves.
+951209	Quixadhal
+  1754	Fixed exit command to be friendly to immortals.
+951210	Quixadhal
+  2334	Modified stat command, added doh social, added half-done clone
+	spell.  Minor tweaks that I forgot to log yesterday.
+  0006	Removed cust command... replaced with more useful doh emote :)
+	Removed lroom command... replaced with " alias for tell.
+	Modified interpreter to allow no-spaces between ' " , and : for
+	the say, tell, gtell, and emote commands resp.
+  0101	Prevented slaying of greater gods by lesser gods... they have to
+	kill us the hard way.
+  0118	Made emote tell you "You emote: ..." if echo is on.
+951213	Quixadhal
+  2330	Alphabetized the spell assignment lists in spell_parser.c.
+  2235	Hacked rent-mode so it accepts an argument... this is a floating
+	point number which is the rent multiplier.  IE: rentmode 1.5 should
+	make things cost half again as much as usual.
+  2356	Fixed restore to disallow any but "all" for < 56th level... we
+	can now free the restoreall command slot.
+951214	Quixadhal
+  0300	Started cleaning out old files.  Freed up about 20 Meg!
+  0339	Fixed stat to work properly with objects and mobs... It still has the
+	bug of not loading a mob if one doesn't exist in the world, but that
+	is relatively minor.
+  0349	Changed whod for the external port so it doesn't show invis/hidden
+	people.  It also no longer shows the room, regardless of whod settings.
+	Make people log in to find out where someone is.  It WILL show those
+	who are in dark areas though.
+  0354	Changed system command to wall, allspells to just spells.
+  0427	Added a randomized error message routine instead of just "Pardon?".
+	Also made the idea/bug/typo messages more interesting.
+	Maybe someone will use them...
+  0445	Closed a few more security holes.  Maybe fixed noshout... I'm not
+	clear on how the flags actually are used yet.
+  0450	Disabled saving of binary player files...
+  1554	Added CAN_CAST function to spell_parser.c.  This determines if a
+	character can cast the spell in question.  It uses both their
+	level and the antiquated HasClass() function that we want to do
+	away with.
+951216	Quixadhal
+  1415	Fixed special routine display for rooms.
+  0224	inlined several functions from utils.c and converted a few to use
+	system calls instead of the old versions (str_cmp == strcasecmp).
+  0257	Replaced lots of hard-coded "<6" with "< ABS_MAX_CLASS", or
+	"< MAX_NUM_EXITS" as appropriate... now we work on "<=5"
+  0317	Created new NAME() macro.  This one works on both players and
+	mobs, returning the name or short_descr field, respectively.
+	It also returns "" if passed a NULL pointer, better than a
+	seggie!
+  0337	Changed the consider command.  It now introduces a fuzz factor
+	into the level difference.. should make it even more random, and
+	more importanly, it should give slightly different messages for
+	the same mobs.
+  0356	Replaced all "<=5" with exits/class defines.  We are now one step
+	closer to being able to add more classes.
+  0433	I believe I've modified do_stat so that a given mob will be
+	created if none exist in the world at all.  Thus, if you type
+	"stat mob eli" (or his vnum), it should first look in the room
+	you are in.  If no eli is present, it will look in the world.
+	If no eli can be found in the entire world, it will try to search
+	the mob table for the first match of eli.  If one is found, an
+	eli will be loaded where you stand and then stat will continue.
+  0440	Fixed trans so wizards cannot summon above their station.
+  0815	Skeleton of merged guildmaster routine is done.  This still needs
+	some work to integrate all classes and skills, but I think this
+	will wait until skills and non-magi have been merged into the
+	single spell_info structure.
+951218	Quixadhal
+  0146	Got falling/drowning code back online.
+	Fixed a bug with passing null pointers to strcmp().
+	Made guildmasters congratulate people for gaining a level.
+	Made eli "congratulate" people for registering.
+	Made Ned charge an extra 250 gold to look at a nut.
+  1715	Removed code for Cyric's new database format.  Some of it anyways.
+	myerror.h is no longer present.
+  1858	Fixed minor bug in date stamping routine... tm_mon is the month
+	number from 0..11, so we had to add 1 for human consumption.
+	Also fixed a bug in optimization of dice()... oops!  I think it
+	is correct now.
+	First official PURGE of the player base!  We cut out 1/4 of the
+	users for inactivity.  Basically, I deleted anyone who did not
+	have a text-based save file.  Also added a datestamp to the
+	player list dump.
+  2354	Fixed prompts to distinguish between immortals who are switched
+	and mortals who are polymorphed.
+951219	Quixadhal
+  0154	Added a map command, which if it looks nice, may replace the exits
+	command.  It is quasi-graphical.
+  0412	Made chill touch spell force undead to flee if they fail their save.
+  0433	Replaced more assert()'s with if() return's in magic.c.
+	Removed bug() statements from NudgeNudge.
+	Time to compile one last time tonight.... the modems supposedly
+	will die at 5am, so I have to get outta here!
+  0446	Added a description for cure_XXX spells so the person doing the
+	healing can see how well it works.
+  1703	Made experimental map command (graphical exits) available to mortals.
+	Fixed falling bug (I hope!) that got the sector types of the wrong room.
+  1801	Improved drowning routine so that people have a chance of drowning
+	if in any water sector, not just underwater.  Based off their swimming
+	skill.
+  2213	Recoded earthquake spell!  It is much more powerful now and does damage
+	in adjacent rooms!  It also requires one of three objects for a
+	material component... one can be found in Highstaff!
+951220	Quixadhal
+  0430	Fixed minor bug with printing uninitialized buffer variable in the
+	remove command for message boards... Removed both the print statement
+	and the buffer, since it wasn't used!
+  0510	Added timestamp to players log.
+  0520	Added immortal announcement when an imp logs in.
+  1630	Took the first step in eliminating seperate class tables and
+	began merging the seperate "spells" block into "spell_info".
+951221	Quixadhal
+  0131	Almost completed removing spells.  It is still used in a couple of
+	sticky places... I'll replace those AFTER verifying that it has
+	worked for all the other commands.
+  0137	Global search and replace... spells_to_learn -> pracs.
+  0836	Finished creating new type 'C' mob.  This is my first draft at a
+	replacement format for the mob file.  Allows class setting so perhaps
+	we can do generic guildmasters and similar automatic class sensing.
+  1530	Made tell work like say.. that is use the punctuation at the end.
+  2120	Added support for ascii equipment files.  The writing routines are
+	in place, but a reader must be written.  Slightly tricky to get the
+	container/contained relationship right.  Also eliminate all references
+	to spells and r_spells.
+  2250	Fixed up no-magic rooms properly.... added more class checking routines
+	for future extensions: IsWizard, IsPriest, IsSneak, etc...
+951222	Quixadhal
+  0042	Added encryption to password entries.  We still support the old
+	passwords, but no longer write them out in clear text.
+  0044	Fixed suicide to also rename .obj files.
+  0201	Encrypted passwords are now functional.
+	Support for restoring objects to their former positions (wielded or
+	inside containers) has been added.
+  0525	Fixed prompts to distinguish between switched immortals, polymorphed
+	players, normal players, and normal immortals.
+	Changed many messages, especially in do_cast().  Allowed mobs to cast
+	if the CanCast() function allows it... IE: If they have one of the
+	magical classes set.  This means only type 'C' mobs and those generated
+	by spells or special routines.
+	Added a save of all equipment immediately upon entry to the game
+	because Cultist had himself seen briefly as carrying only one object
+	when he had a whole bunch... This seems to have fixed it.
+  2024	Started writing ascii object reader.
+	Changed do_cast() some more... mana loss now varies based on your
+	spellcraft and meditation abilities.  More random messages too!
+951223	Quixadhal
+  0519	Rewrote puff() again.  Simplified a bit.  The values may need
+	tweaking if he does stuff too often.
+951229	Quixadhal
+  0608	Fixed a grouping bug caused by the variable victlvl not being
+	initialized properly.
+  0715	Added IsAvian and IsDraconic functions.
+	Gave Dragons hands (HasHands is now true for them).
+  0720	Found a design flaw with the hatred/fear system... (big surprise!)
+	There are two interfaces to determine if one creature hates
+	another... one is the Hates() function, the other is the
+	FindAHatee() function.  The first says "does a hate b?", while
+	the second says "who in the room do I hate?"
+	Problem:  In some places this is used as you'd expect...
+		"Can I clobber this creature?"
+		However, in others it is "do I presently hate them?"
+	The distinction is:  if we make Hates() also check things like	
+	visibility (it does), paralysis, immortality of victim, etc...
+	then when  the second question is asked, we will give the wrong
+	answer.  If we don't check those, the first question will fail.
+	The only solution I can find is:
+		DoesHate() - says "do I hate this person?"
+		CanHate() - says "can I kill this person by hatred?"
+960105	Quixadhal
+  0512	Added a check to the CheckKill() function which says if the
+	victim is POSITION_DEAD, return FALSE.  This should keep the
+	upper level calls to hit() and such from crashing due to
+	hitting dead people.  Also moved functionality to CanKill,
+	which accepts a string to be printed on failure... such as
+	"You can't bring yourself to backstab %s.\n\r"
+	CheckKill is a small inline that calls CanKill with the
+	traditional "It doesn't affect %s.\n\r".
+960106	Quixadhal
+  0400	Hopefully fixed a bug with guildmasters shouting... optimized the
+	code for GainLevel while I was at it.
+  0749	Cleaned up comm.c a little bit.... got rid of UNIX_COMM stuff.
+  1208	Finally figured out dependancy rules well enough to move all the
+	object files into a subdirectory properly.  obj/ now contains all
+	object files so they are out of sight.
+  1210	Guildmasters now won't teach anything that is 20 levels BELOW their
+	own level.  This means guildmasters now have a "window" of 10 levels.
+	IE:  If the guildmaster is 15th level, he will teach up to 5th level
+	skills.  If the guildmaster is 25th level, he will teach skills that
+	fall between 5th and 15th level.  This ALSO means that the 25th
+	level guildmaster will NOT teach 1st through 5th level skills, and
+	they ALSO will not train anyone who is less than 5th level!  So if
+	a newbie makes his way to Highstaff, he has to go back to Shylar
+	to train. <snicker>
+  1702	Added two more (!) fields to ASSIGN_SPELL().... We now also keep a
+	generic level and generic class field.  If a guildmaster is generic,
+	he can teach any skill whose generic level falls into his range.
+	He will teach it to anyone who has one (or more) of the classes
+	that is stored in the generic class bitmask.  Hence we have
+	spellcraft at glev 7, gcl CLASS_MAGICAL = any mage, cleric, druid,
+	or ranger can learn this skill at level 7.
+  1722	Mage, Cleric, Thief and Ranger guildmaster routines are now all
+	nearly identical...  With a clever table of response messages, I
+	think I can reduce them to a single guildmaster routine soon.
+960109	Quixadhal
+  1851	Fixed small bug in Congratulations message from guildmasters.
+960110	Quixadhal
+  2034	Fixed bug with practice in guildmaster routines.... We can't use
+	GET_LEVEL() until we have a unified routine AND the mobs actually
+	have classes... had to switch back to GetMaxLevel().
+960111	Quixadhal
+  1858	Changed PULSE_LAW to PULSE_REBOOT since we only do reboot checking
+	nowadays.
+960217	Quixadhal
+  1350	Changed move so that immortals can enter private rooms.
+	Also did more work on reception.  ASCII object saves may be fixed.
+960225	Quixadhal
+  0710	Raised gredth guildmasters to level 35.. this should let them
+	train levels 16 to 25, thus not overlapping with Highstaff's
+	6 to 15 anymore.  Level 25+ needs to be done in SR. (Dirk!!!)
+	WHile doing so, I tweaked my type 'C' mobs a bit... you should now
+	be able to specify stats by dice rolls OR constants... IE:
+	I made the cleric guildmaster have: 3d6 0 3d6 3d6 1d6+12 18
+	A 0 for saving throws means "you figure it out"
+  0730	Hooray!  It seems to have worked.  The old man cleric in gredth
+	has a 7 strength, but 18 int and wisdom.  He successfully trained
+	a 15th level cleric to 16th.  Perhaps I should allow one level of
+	overlap like practice... hmmmmm... we'll see.. time to sleep now.
+960226	Quixadhal
+  0530	Changed at command to use the same search technique as score.
+	This was because earlier today I found at 3.goblin didn't work!
+  0602	Redid 'C' mob loader... now uses fread_dice() throughout... this
+	function scans in a dice roll of the format xdy+z and allows you
+	to omit y and z, which default to 1 and 0.  z can also be negative,
+	but do NOT use spaces or omit x.
+  0610	Changed fight.c so that mobs gain exp for pkilling, just like
+	players do... 500xp per level at present.  I think I'd also like
+	mobs to gain levels if they get enough exp. <grin>
+  0634	Cut out deadwood from utils.c.  Removed olc support since it was
+	never fully finished and won't be under my reign.  My inheritor
+	can grab the old code (or SillyMUD where it came from) if he/she
+	wants it.
+  0740	Redid weather.c and optimized a bit.  Group experience redid...
+	I hope it works better now.
+  0800	Fixed bug with axe routine... when you are forced to attack a
+	player, it got the name wrong.... also touched up group exp code
+	and added a log statement to try and see if it's working right.
+  0830	YES!  Fixed it... can you believe GetSecMaxLev and GetThirdMaxLev
+	were off by one?  They were returning third and fourth highest
+	levels, and thus dropping to zero.  Also made it so that kill
+	comes before kiss in the command lookups, and made you enter
+	the game grouped with yourself.
+  0845	Added synonyms of "me" and "myself" to get_char_vis() routines.
+	This won't do everything, but it's a start.
+  1630	Fixed bug in moon-phase caused by stupid 1..32 indexing instead of
+	normal C 0..31.  Thanks Sedna!
+960227	Quixadhal
+  0500	Tweaked experience code a bit... multi-classes should be ok.
+	Changed astral-traveller to use fname(GET_NAME(x)), so we should
+	get "goblin" instead of "a goblin" I hope.
+	mobs now gain levels!  If your mob manages to get enough exp,
+	he will go up a level now, reaping the benefits.  Hence, if you
+	mobs stay alive, they can get more powerful... however, it also
+	works with mobs who kill people.
+	New event added:  goodies.  Will scatter gold around the zone
+	and a few objects and thieves/bandits/etc... some of themobs
+	are bigger, some are tiny.... good for mid-levelers, or newbies
+	if a few mids are on to help.
+960228	Quixadhal
+  0535	Tweaked mob exp a bit more.  Mobs now only gain 1/4 what players
+	do.... but they only NEED 1/20 to level.  So they level four
+	times as fast, but don't become worth so much exp.
+	Fixed score so that mobs doing score get the right display.
+960301	Quixadhal
+  1324	TOTALLY changed experience tables!  Don't HIT me!  Damnit!
+	Sorry, but this was LONG overdue... as has been said before,
+	this mud wasn't DESIGNED for 50 levels... it started life with
+	only 20 levels and got HACKED!  The experience tables need to
+	keep it challenging, as it is NOT.  If you doubt, look at this
+	fact.  Dorn took a good 10 DAYS of playing time to get his
+	character up to level 20.... he then proceeded to get up to
+	level 30 in about a week (not playing time... elapsed time).
+	Thus level 30 didn't mean as much as level 20.  If we're gonna
+	have 50 levels, they need to be 50 level's worth of pain.
+	Changed earthquake back to the old one for now.... damn bugs.
+  1330	Maybe closed a small bug that let non-grouped PC followers
+	get a share of the leftover exp.  I saw this happen once.
+  1335	Added fun effects to quaffing from fountains. <grin>
+960302	Quixadhal
+  0507	Changed fountain so it only does the special thing if
+	you are thirsty (or a god)... Also changed polymorph self
+	spell so it is more random (I hope!).
+  0601	Damn... I have to get back to my story!
+	Well, instead, I made corpses have a 40/60 chance of coming
+	back to life as a RANDOM UNDEAD!  If this happens in Shylar,
+	It will be a wimpy one...  Also added a bury command which
+	lets people put their corpses to rest... They get an extra
+	50..100 exp for doing so, and their alignment shifts 5..50
+	towards good.  They also incur 4 wait states as penalty.
+  0607	Correction... if zone is Shylar (10), we don't do this at all.
+960308	Quixadhal
+  1609	Changed bury to take items on the corpse with it to the grave.
+	Added a sign and pen to the minor creation spell... thanks Dorn!
+  1629	Changed objects for elemental summoning.
+960313	Quixadhal
+  0200	Sedna did some stuff for new spells that aren't documented yet.
+	I fiddled with one of them and maybe fixed it... maybe...
+960315	Sedna
+  0857	Trying to add the standard special procedures for summoned monsters.
+        Also, have changed turn to include the ability of good priests to
+	slay undead if two saving throws fail, and charm for evil priests.
+	Have added goodberry to ranger spells and added new spell (astral
+	vision) to clerics.
+960321	Quixadhal
+  2245	Added costs for gaining levels....
+960319	Sedna
+  ????  Gave summoned mobs the abilities that members of their race should
+        have.  For example, summoned ghasts and ghouls can paralyze.
+        Summoned dwarven clerics and ogre magi can cast as well.
+960327	Quixadhal
+  2115	Added a desecrate command as equivalent to bury, but evil!
+  2155	HOPEFULLY modified code for zombies that rise or are created with
+	animate dead so they wear all their equipment.  I also modified
+	the wear command so it should try to wear weapons (wield).... thus
+	wear all might be sufficient to ready yourself for combat.  This is
+	MOSTLY for mobs as there is now "wield all" or "wield any" command.
+960529	Quixadhal
+  0500	gcc 2.7.2 doesn't like wiley.... so since I have to go through
+	and fix all the things -w was hiding, I removed send_to_char and
+	replaced them all with cprintf.
+  0530	Got up to act_off.c.  Decided to also rework all log() macros to
+	remove sprintf(buf, fjdklsa);log(buf); pairs....
+960610	Quixadhal
+  1351	Got all warnings removed from source except two prototype
+	complaints that have to do with the funcp declarations.
+	Fixed numerous tiny bugs throughtout the source as this
+	happened.
+960612	Quixadhal
+  0234	Began splitting spec_procs.c up into seperate modules.
+	I will probably also merge mob_actions.c into the new
+	specials.c.  I expect to have a main specials.c, which
+	will contain general routines and defaults, and then
+	each special routine will be in its own file.  The
+	include/specials.h will then have prototypes for all
+	special routines (as it does now).
+960617	Quixadhal
+  0048	Moved mkworld and sign into utils subdirectory.
+961011	Sedna
+  1320	Fixed bug in colour spray which prevented registered players from
+	being affected by the spell.
+980917	Quixadhal
+  1937	Restored this mess from backup tapes.  I have no idea if I will really
+	do any work with it again, but if I don't, no one else will.  Perhaps
+	I can work with Jettero to some degree.  He may accept some parts of
+	Wiley in his own lpmud.
+  1952	Changed all occurances of dprintf() to dcprintf() to avoid a conflict
+	with the newer libgcc function.
+981005	Quixadhal
+  1500	Fixed a few things.  Compilation requires -static for some reason
+	under this versio of glibc.  Bizzare.  Memory handling seems more
+	picky nowadays... it crashes on things it used to allow (and probably
+	leak).  Attempting to add validation strings to some variables.
+  1530	Will attempt to remove some of the creeping featurism that changed
+	the way the game felt.  To start with, allow Tate to heal evil
+	people in Shylar... and make the random undead rising code percentage
+	vary based on the moon phase (add a moon phase and a way to find
+	out what it is).
+  2300	Hacked stat routine to list function names in mobs with specials.
+981010	Quixadhal
+  0500	Fixed Tate up to be "nice".
+980402	Quixadhal
+  0000	Reduced spam from puff.
+000802	Quixadhal
+  0140	Started hacking makefile to work with modern linux again.
+  2222	Fixed reset_q bug by declaring it in db.c instead of db.h... how
+	did this work to begin with???
+000804	Quixadhal
+  0058	Removed MOST of the calls to malloc/calloc/free and used the utils.h
+	macro CREATE/et. al.... centralized error trapping.
+031126	Quixadhal
+  2155	Got things going under Slackware linux again.
+040724	Quixadhal
+  0240	Finally tracked down obscure fclose() bug that crept in since gcc 3.4
+	Things are running again under Debian!
+040725	Quixadhal
+  1427	Changed do_debug command to accept on/off as params, or to toggle the
+        debug state.  DEBUG2 variable removed, as it was unused.
+040809	Quixadhal
+  0319	A few more cleanups.
+  0750	Restored OLD signal handling, sigaction seems to be a bit flaky.
+  0846	Made a proper init.d script for debian.
+	Also revamped my old .indent.pro file.
+040810	Quixadhal
+  0510	Removed log() from bug.c and converted all logs to dlogs or bugs.
+	Ran all code through indent to neaten it up a bit.
+  0717	Restored original DikuMUD license.... who was the naughty person that
+	"lost" that file, eh?  Also restored creators names to the login screen.
+	I'm sure lots of code was grafted from OTHER diku derivatives as well, but
+	there is no record, and I haven't the time to do a code audit against every
+	other codebase out there.  Suffice it to say, if *I* use code from elsewhere,
+	it will be documented!
+040813	Quixadhal
+  0418	Converted act() to use varargs, and tracked down a weird bug that showed up
+	as a result.  Apparently when you use vsprintf(), you get the string "(null)"
+	wherever a %s maps to a NULL pointer.  At least, if that's not where it comes
+	from, I haven't a clue since that string occurs in no code, nor in the lib files.
+	In any case, MakeSound() as being passed null pointers in a few cases, where there
+	was a local sound but no distant sound, and the new version of cprintf was
+	translating them to the string "(null)".  When I was being "improper" and using
+	cprintf(ch, foo) instead of cprintf(ch, "%s", foo), the NULL was getting in and
+	being caught by my error check... no action happened, bug lies dormant.
+040825	Quixadhal
+  0451	Began shoring up the debug log usage, and initializing ALL variables to some known
+	value.  I've done this for several other diku codebases, so it only makes sense to
+	finally do it with my own.  You may notice that I initialize char arrays to the
+	constant string "\0\0\0".... that's NOT the same things as "".  Specifically, I want
+	to stuff 4 bytes of zeroes in there so that a pointer dereference on such a thing will
+	correctly produce 0L instead of a random number from 0 to (2^24).  You 64-bit people
+	will have to change it to 7 bytes if you care, I have no way to test such a beast.
+041102	Quixadhal
+  0656	Finished my main pass at debug messages.  For the Love of God, don't turn debug up
+	higher than level 2 on a running mud!  Doing a few more cleanups, but it's about ready
+	to release unless I was actually going to start working on it again.  There are still
+	(and always will be!) lots of places for improvement, but I think it's stable and
+	no worse than most of the other diku's available out there!
+  1155	After going out to VOTE (Hanging Chads II : Bush vs. Kerry), added the ability to use
+	arguments in wizhelp.  No file yet, but hopefully that means the wizard commands can be
+	documented properly.
+041107	Quixadhal
+  0456	Fixed a bug I introduced into the board system when normalizing the calling parameters
+	of several functions.  I decided to make my official public release on Christmas, so
+	I may yet tweak a few more things before I give it away.  I'm thinking that adding
+	the I3 channel code might be worth doing, and perhaps a simple colour parser, but
+	that's about it.
+041108	Quixadhal
+  0406	Nope.  Adding I3 support will require either rewriting the I3 load/save routines, or
+	finally rewriting Wiley's entire ancient load/save code.
+080914	Quixadhal
+  1045	Fixed a LONG standing bug with a staff of weakness, thanks to a new warning by gcc 4.1.2
+  1230	Added SQL database support!  Very simple, will move logging to the database first I think.
+  1400	Added SQL to logging system.  Replaced dlog() with log_printf().
+  2330	Replaced bug() with log_bug() and renamed abug() to bug_logger().
+080915	Quixadhal
+  0100	Replaced log_bug() with log_error() and log_printf() with log_info().
+	Added log_fatal(), log_boot(), and log_auth().
+  0728	Added log_kill() and log_death().
+	Added a proper_exit() function and changed ALL cases of abort() or exit() to use it.
+080924	Quixadhal
+  1314	Added a log_reset type and converted the zone reset functions to use it.
+	This should help reduce space, since you can now filter them out.
+080928	Quixadhal
+  1730	Fixed a bug I introduced with the log_reset addition, oops.
+	Totally removed and rewrote my SQL code.  It works the same, but we're now using
+	ECPG to pre-process embedded SQL statements, right in the code.  You'll want to add
+
+	au! BufRead,BufNewFile *.pgc    set filetype=esqlc
+
+	to your .vimrc file so you can get syntax highlighting on your new .pgc files.
+	For now, you edit the .pgc file and it generates a .c file to compile... At some point,
+	I'll muck with the makefile to keep things tidy.
+081002	Quixadhal
+  1432	Working with ban system to integrate SQL and add do_ban/do_unban commands.
+	Modified check_playing() so you can pass it a NULL descriptor... if we're just checking
+	a name, we don't have a character structure to compare against, but we still want to loop
+	through all the existing descriptors to compare their character names.
+  1533	Got ban system working with do_ban and do_unban adding and removing names on the fly.
+	IP Address banning is not yet implemented.
+090605	Quixadhal
+  0513	Been doing some cleanup stuff, made logging NOT go to the database by default.
+	Fixed a bug I introduced in the last const char * crap, nobody noticed.
+	Merged IMC2 support in, except for socials!
+100718  Quixadhal
+  1440  Naughy... not keeping the HACKLOG up to date!
+
+	Well, let's see.
+
+	Restored old WileyMUD characer files from archives.
+	Restored old WileyMUD board messages from archives.
+	Revamped board code to fully use SQL and abandoned flat file support.
+
+	Moved WileyMUD into a git repository, so as much of the development
+	history as I have is now in place.  All future development will utilize
+	git, making it easier to backup everything, and giving us a better
+	safety net.
+
+	Hopefully fixed a long-standing socket reuse bug that kept us from
+	rebooting quickly.
+100720  Quixadhal
+  2242  Fixed a bug with NPC shouts not being blocked for people in message board rooms.
+        Also added local copies of the gitweb CGI script to our web directory so the
+        local git repository can be browsed.  Had to make the git files world readable
+        since we don't have ACL's.
+
+        This is a security concern (mild), since all the player files ARE in git.
+        Not a big deal, IMHO, but there ya go.
+110701  Quixadhal
+  0259  Many of the logs aren't here now since I started using git, lazy.
+        In any case, one new thing is a proper backup script.  It does full backups
+        of the SQL database and the entire codebase + data files.  It also makes a
+        somewhat smaller distribution set which is what I now hand out to anyone
+        wanting a copy.  Among other things, this means if you do want to start up
+        your own FooMUD from this, you'll need to copy the admin player files
+        from src/lib/ply to the matching spot in lib/ply.
+140406  Quixadhal
+  0738  Still not updating this log as I should... anyways, the big changes are
+        the removal of SQL entirely.  It never worked quite right, and since it was
+        never a full conversion, it made more sense to get rid of it, than to try and
+        debug it and STILL not fully use it.
+
+        I also tried to fix hunger/thirst a bit.  Apparently at some point, they stopped
+        killing people.  I fixed that, but then it killed everyone including immortals.
+
+        I think it works almost right now, except maybe in peaceful rooms.
+

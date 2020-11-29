@@ -1,0 +1,124 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdarg.h>
+#include <assert.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+#include "global.h"
+#include "bug.h"
+
+#define __SQL_C__
+#include "sql.h"
+
+EXEC SQL INCLUDE sqlca;
+
+int db_connected = 0;
+int db_logging = 1;
+
+int db_log_info = 0;
+int db_log_errors = 1;
+int db_log_boot = 1;
+int db_log_auth = 1;
+int db_log_kills = 0;
+int db_log_resets = 0;
+int db_log_imc = 1;
+
+int init_sql( void )
+{
+  EXEC SQL BEGIN DECLARE SECTION;
+  const char *sql_connect = "tcp:postgresql://localhost:5432/wiley";
+  const char *sql_user = "wiley";
+  const char *sql_passwd = "tardis69";
+  EXEC SQL END DECLARE SECTION;
+
+//  if (ECPGstatus(__LINE__, NULL)) {
+//    db_connected = 1;
+//    return db_connected;
+//  }
+  fprintf(stderr, "Connecting to database server...");
+
+  EXEC SQL CONNECT TO :sql_connect AS :sql_user USER :sql_user IDENTIFIED BY :sql_passwd;
+  if (sqlca.sqlcode == 0 ) {
+    db_connected = 1;
+    fprintf(stderr, "success!\n");
+  } else {
+    db_connected = 0;
+    fprintf(stderr, "failed!\n");
+  }
+
+  //assert(sqlca.sqlcode == 0);
+  return db_connected;
+}
+
+void close_sql( void )
+{
+  if (db_connected)
+    EXEC SQL DISCONNECT ALL;
+
+  db_connected = 0;
+}
+
+int verify_sql( void )
+{
+  EXEC SQL BEGIN DECLARE SECTION;
+  int is_connected;
+  EXEC SQL END DECLARE SECTION;
+
+  is_connected = 0;
+
+  if (ECPGstatus(__LINE__, NULL)) {
+      EXEC SQL SELECT 1 INTO :is_connected;
+  }
+
+  return is_connected;
+}
+
+char *version_sql( void )
+{
+  EXEC SQL BEGIN DECLARE SECTION;
+  static char version[MAX_STRING_LENGTH];
+  EXEC SQL END DECLARE SECTION;
+
+  if (db_connected) {
+    EXEC SQL SELECT version() INTO :version LIMIT 1;
+    if (sqlca.sqlcode != 0 ) {
+      fprintf(stderr, "error code %ld, message %s, rows %ld, warning %c\n",
+             sqlca.sqlcode, sqlca.sqlerrm.sqlerrmc, sqlca.sqlerrd[2],
+             sqlca.sqlwarn[0]);
+      strcpy(version, sqlca.sqlerrm.sqlerrmc);
+    }
+  } else {
+    strcpy(version, "Not Connected");
+  }
+  return version;
+}
+
+int compare_dates_file_sql( const char *filename, const char *tablename, const char *fieldname )
+{
+  EXEC SQL BEGIN DECLARE SECTION;
+  char statement[MAX_STRING_LENGTH];
+  int sql_time = 0;
+  EXEC SQL END DECLARE SECTION;
+  struct stat statbuf;
+  int file_time = 0;
+
+  if (db_connected) {
+    sprintf(statement, "SELECT floor(extract(epoch FROM %s))::int FROM %s ORDER BY %s DESC LIMIT 1",
+            fieldname, tablename, fieldname);
+    EXEC SQL PREPARE stmt FROM :statement;
+    EXEC SQL EXECUTE stmt INTO :sql_time;
+    EXEC SQL DEALLOCATE PREPARE stmt;
+  
+    if(!stat(filename, &statbuf)) {
+      file_time = (int)statbuf.st_mtime;
+    }
+  
+    return file_time < sql_time ? -1 : (file_time == sql_time ? 0 : 1);
+  } else {
+    return 1; /* If SQL isn't available, the file IS the newest */
+  }
+}
+

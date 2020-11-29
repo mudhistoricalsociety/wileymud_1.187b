@@ -1,0 +1,734 @@
+#RENT
+Owner              Cultist~
+Gold               114
+TotalCost          99
+LastUpdate         1064730945
+MinimumStay        0
+End
+#EQUIPMENT
+#ITEM
+ObjId              0
+ContainedBy        -1
+Name               vest feathered~
+Description
+A vest made almost completely of feathers lies here.~
+ShortDescr
+a feathered vest~
+ActionDescr
+(null)~
+VNum               1306
+EquippedAt         5
+Values             2 2 0 0
+ExtraFlags         0
+Weight             7
+Timer              0
+BitVector          0
+Type               9
+WearFlags          9
+Cost               235
+CostPerDay         235
+Affect             17 -6
+Affect             0 0
+End
+#ITEM
+ObjId              1
+ContainedBy        -1
+Name               hawk beaked mask~
+Description
+A mask with a large beak upon it lies here.~
+ShortDescr
+a hawk beaked mask~
+ActionDescr
+(null)~
+VNum               1305
+EquippedAt         6
+Values             2 2 0 0
+ExtraFlags         8192
+Weight             5
+Timer              0
+BitVector          0
+Type               9
+WearFlags          17
+Cost               67
+CostPerDay         67
+Affect             0 0
+Affect             0 0
+ExtraDescr         hawk beaked mask~
+  The mask has a huge beak upon it, rather it looks more like a hallow head
+
+of some huge bird.
+
+~
+End
+#ITEM
+ObjId              2
+ContainedBy        -1
+Name               scale skirt~
+Description
+A scale skirt lies here in a hump.~
+ShortDescr
+a scale skirt~
+ActionDescr
+(null)~
+VNum               10006
+EquippedAt         7
+Values             2 2 0 0
+ExtraFlags         0
+Weight             15
+Timer              0
+BitVector          0
+Type               9
+WearFlags          33
+Cost               150
+CostPerDay         10
+Affect             17 -4
+Affect             0 0
+End
+#ITEM
+ObjId              3
+ContainedBy        -1
+Name               leather armbands~
+Description
+A pair of leather armbands lie here.~
+ShortDescr
+some leather armbands~
+ActionDescr
+(null)~
+VNum               1301
+EquippedAt         10
+Values             1 0 0 0
+ExtraFlags         0
+Weight             3
+Timer              0
+BitVector          0
+Type               9
+WearFlags          257
+Cost               54
+CostPerDay         54
+Affect             0 0
+Affect             0 0
+End
+#ITEM
+ObjId              4
+ContainedBy        -1
+Name               leather clothe~
+Description
+A leather clothe lies here.~
+ShortDescr
+a leather clothe~
+ActionDescr
+(null)~
+VNum               1304
+EquippedAt         13
+Values             1 1 0 0
+ExtraFlags         0
+Weight             2
+Timer              0
+BitVector          0
+Type               9
+WearFlags          2049
+Cost               23
+CostPerDay         23
+Affect             17 -1
+Affect             0 0
+End
+#ITEM
+ObjId              5
+ContainedBy        -1
+Name               staff clawed~
+Description
+A staff with a large claw at the top lies here.~
+ShortDescr
+a clawed staff~
+ActionDescr
+(null)~
+VNum               1307
+EquippedAt         18
+Values             0 1 7 7
+ExtraFlags         0
+Weight             5
+Timer              0
+BitVector          0
+Type               5
+WearFlags          32769
+Cost               123
+CostPerDay         123
+Affect             0 0
+Affect             0 0
+ExtraDescr         staff clawed~
+  The staff appears to be made from ironwood and at the top seems to have 
+
+some sort of a avian foot, claws extended.  It could make a lasting scar
+
+upon someone, if they knew how to use it.
+
+~
+End
+End
+#CARRIED
+#ITEM
+ObjId              26
+ContainedBy        15
+Name               steak~
+Description
+A well cooked steak rests here.~
+ShortDescr
+a juicy steak~
+ActionDescr
+(null)~
+VNum               5014
+EquippedAt         0
+Values             10 0 0 0
+ExtraFlags         0
+Weight             1
+Timer              0
+BitVector          0
+Type               19
+WearFlags          16385
+Cost               10
+CostPerDay         1
+Affect             0 0
+Affect             0 0
+End
+#ITEM
+ObjId              26
+ContainedBy        15
+Name               steak~
+Description
+A well cooked steak rests here.~
+ShortDescr
+a juicy steak~
+ActionDescr
+(null)~
+VNum               5014
+EquippedAt         0
+Values             10 0 0 0
+ExtraFlags         0
+Weight             1
+Timer              0
+BitVector          0
+Type               19
+WearFlags          16385
+Cost               10
+CostPerDay         1
+Affect             0 0
+Affect             0 0
+End
+#ITEM
+ObjId              26
+ContainedBy        15
+Name               steak~
+Description
+A well cooked steak rests here.~
+ShortDescr
+a juicy steak~
+ActionDescr
+(null)~
+VNum               5014
+EquippedAt         0
+Values             10 0 0 0
+ExtraFlags         0
+Weight             1
+Timer              0
+BitVector          0
+Type               19
+WearFlags          16385
+Cost               10
+CostPerDay         1
+Affect             0 0
+Affect             0 0
+End
+#ITEM
+ObjId              26
+ContainedBy        15
+Name               steak~
+Description
+A well cooked steak rests here.~
+ShortDescr
+a juicy steak~
+ActionDescr
+(null)~
+VNum               5014
+EquippedAt         0
+Values             10 0 0 0
+ExtraFlags         0
+Weight             1
+Timer              0
+BitVector          0
+Type               19
+WearFlags          16385
+Cost               10
+CostPerDay         1
+Affect             0 0
+Affect             0 0
+End
+#ITEM
+ObjId              26
+ContainedBy        15
+Name               heafty loaf bread~
+Description
+A heafty loaf of bread rests here.~
+ShortDescr
+a heafty loaf of bread~
+ActionDescr
+(null)~
+VNum               5016
+EquippedAt         0
+Values             7 0 0 0
+ExtraFlags         0
+Weight             1
+Timer              0
+BitVector          0
+Type               19
+WearFlags          1
+Cost               5
+CostPerDay         1
+Affect             0 0
+Affect             0 0
+End
+#ITEM
+ObjId              26
+ContainedBy        15
+Name               bread~
+Description
+A loaf of bread has been left here.~
+ShortDescr
+a bread~
+ActionDescr
+(null)~
+VNum               3010
+EquippedAt         0
+Values             10 0 0 0
+ExtraFlags         0
+Weight             3
+Timer              0
+BitVector          0
+Type               19
+WearFlags          1
+Cost               5
+CostPerDay         1
+Affect             0 0
+Affect             0 0
+End
+#ITEM
+ObjId              26
+ContainedBy        15
+Name               bread~
+Description
+A loaf of bread has been left here.~
+ShortDescr
+a bread~
+ActionDescr
+(null)~
+VNum               3010
+EquippedAt         0
+Values             10 0 0 0
+ExtraFlags         0
+Weight             3
+Timer              0
+BitVector          0
+Type               19
+WearFlags          1
+Cost               5
+CostPerDay         1
+Affect             0 0
+Affect             0 0
+End
+#ITEM
+ObjId              26
+ContainedBy        15
+Name               bread~
+Description
+A loaf of bread has been left here.~
+ShortDescr
+a bread~
+ActionDescr
+(null)~
+VNum               3010
+EquippedAt         0
+Values             10 0 0 0
+ExtraFlags         0
+Weight             3
+Timer              0
+BitVector          0
+Type               19
+WearFlags          1
+Cost               5
+CostPerDay         1
+Affect             0 0
+Affect             0 0
+End
+#ITEM
+ObjId              26
+ContainedBy        15
+Name               bottle wine red~
+Description
+A bottle of red wine lies upon the ground here.~
+ShortDescr
+a bottle red wine~
+ActionDescr
+(null)~
+VNum               5004
+EquippedAt         0
+Values             15 15 2 0
+ExtraFlags         0
+Weight             1
+Timer              0
+BitVector          0
+Type               17
+WearFlags          16385
+Cost               50
+CostPerDay         10
+Affect             0 0
+Affect             0 0
+End
+#ITEM
+ObjId              26
+ContainedBy        15
+Name               bottle wine red~
+Description
+A bottle of red wine lies upon the ground here.~
+ShortDescr
+a bottle red wine~
+ActionDescr
+(null)~
+VNum               5004
+EquippedAt         0
+Values             15 15 2 0
+ExtraFlags         0
+Weight             1
+Timer              0
+BitVector          0
+Type               17
+WearFlags          16385
+Cost               50
+CostPerDay         10
+Affect             0 0
+Affect             0 0
+End
+#ITEM
+ObjId              26
+ContainedBy        15
+Name               bottle wine red~
+Description
+A bottle of red wine lies upon the ground here.~
+ShortDescr
+a bottle red wine~
+ActionDescr
+(null)~
+VNum               5004
+EquippedAt         0
+Values             15 15 2 0
+ExtraFlags         0
+Weight             1
+Timer              0
+BitVector          0
+Type               17
+WearFlags          16385
+Cost               50
+CostPerDay         10
+Affect             0 0
+Affect             0 0
+End
+#ITEM
+ObjId              28
+ContainedBy        -1
+Name               leather skirt~
+Description
+A skirt made of leather lies here.~
+ShortDescr
+a leather skirt~
+ActionDescr
+(null)~
+VNum               1303
+EquippedAt         0
+Values             1 1 0 0
+ExtraFlags         0
+Weight             3
+Timer              0
+BitVector          0
+Type               9
+WearFlags          33
+Cost               43
+CostPerDay         43
+Affect             14 -5
+Affect             0 0
+End
+#ITEM
+ObjId              28
+ContainedBy        -1
+Name               shortsword short sword~
+Description
+A small shortsword lies here.~
+ShortDescr
+a shortsword~
+ActionDescr
+(null)~
+VNum               1201
+EquippedAt         0
+Values             0 1 6 11
+ExtraFlags         12288
+Weight             5
+Timer              0
+BitVector          0
+Type               5
+WearFlags          8193
+Cost               20
+CostPerDay         20
+Affect             0 0
+Affect             0 0
+End
+#ITEM
+ObjId              28
+ContainedBy        -1
+Name               bag~
+Description
+A small bag.~
+ShortDescr
+a bag~
+ActionDescr
+(null)~
+VNum               3017
+EquippedAt         0
+Values             50 0 0 0
+ExtraFlags         0
+Weight             2
+Timer              0
+BitVector          0
+Type               15
+WearFlags          16385
+Cost               20
+CostPerDay         2
+Affect             0 0
+Affect             0 0
+End
+#ITEM
+ObjId              28
+ContainedBy        -1
+Name               scale bodice~
+Description
+A scale bodice lies here in a clump~
+ShortDescr
+a scale bodice~
+ActionDescr
+(null)~
+VNum               10005
+EquippedAt         -1
+Values             2 2 0 0
+ExtraFlags         0
+Weight             15
+Timer              0
+BitVector          0
+Type               9
+WearFlags          9
+Cost               150
+CostPerDay         70
+Affect             0 0
+Affect             0 0
+ExtraDescr         scale bodice~
+  This piece of armor looks more like the top of a elegant dress than 
+
+anything else, with shoulder straps houlstering the bousoms, much skin on
+
+the upper torso is exposed.
+
+~
+End
+#ITEM
+ObjId              28
+ContainedBy        -1
+Name               rusty scimitar~
+Description
+A scimitar that has been caked with rust lies here.~
+ShortDescr
+a rusty scimitar~
+ActionDescr
+(null)~
+VNum               1401
+EquippedAt         -1
+Values             0 1 7 3
+ExtraFlags         12288
+Weight             6
+Timer              0
+BitVector          0
+Type               5
+WearFlags          8193
+Cost               20
+CostPerDay         20
+Affect             0 0
+Affect             0 0
+End
+#ITEM
+ObjId              28
+ContainedBy        -1
+Name               leather armbands~
+Description
+A pair of leather armbands lie here.~
+ShortDescr
+some leather armbands~
+ActionDescr
+(null)~
+VNum               1301
+EquippedAt         -1
+Values             1 0 0 0
+ExtraFlags         0
+Weight             3
+Timer              0
+BitVector          0
+Type               9
+WearFlags          257
+Cost               54
+CostPerDay         54
+Affect             0 0
+Affect             0 0
+End
+#ITEM
+ObjId              28
+ContainedBy        -1
+Name               leather trousers~
+Description
+A pair of leather trousers lie here.~
+ShortDescr
+some leather trousers~
+ActionDescr
+(null)~
+VNum               1300
+EquippedAt         -1
+Values             1 0 0 0
+ExtraFlags         0
+Weight             5
+Timer              0
+BitVector          0
+Type               9
+WearFlags          33
+Cost               65
+CostPerDay         65
+Affect             0 0
+Affect             0 0
+End
+#ITEM
+ObjId              28
+ContainedBy        -1
+Name               leather clothe~
+Description
+A leather clothe lies here.~
+ShortDescr
+a leather clothe~
+ActionDescr
+(null)~
+VNum               1304
+EquippedAt         -1
+Values             1 1 0 0
+ExtraFlags         0
+Weight             2
+Timer              0
+BitVector          0
+Type               9
+WearFlags          2049
+Cost               23
+CostPerDay         23
+Affect             17 -1
+Affect             0 0
+End
+#ITEM
+ObjId              28
+ContainedBy        -1
+Name               leather skirt~
+Description
+A skirt made of leather lies here.~
+ShortDescr
+a leather skirt~
+ActionDescr
+(null)~
+VNum               1303
+EquippedAt         -1
+Values             1 1 0 0
+ExtraFlags         0
+Weight             3
+Timer              0
+BitVector          0
+Type               9
+WearFlags          33
+Cost               43
+CostPerDay         43
+Affect             14 -5
+Affect             0 0
+End
+#ITEM
+ObjId              28
+ContainedBy        -1
+Name               leather bra~
+Description
+A leather bra lies here.~
+ShortDescr
+a leather bra~
+ActionDescr
+(null)~
+VNum               1302
+EquippedAt         -1
+Values             1 1 0 0
+ExtraFlags         0
+Weight             2
+Timer              0
+BitVector          0
+Type               9
+WearFlags          9
+Cost               34
+CostPerDay         34
+Affect             0 0
+Affect             0 0
+ExtraDescr         leather bra~
+  This obviously covers the bossums of a woman.
+
+~
+End
+#ITEM
+ObjId              28
+ContainedBy        -1
+Name               leather trousers~
+Description
+A pair of leather trousers lie here.~
+ShortDescr
+some leather trousers~
+ActionDescr
+(null)~
+VNum               1300
+EquippedAt         -1
+Values             1 0 0 0
+ExtraFlags         0
+Weight             5
+Timer              0
+BitVector          0
+Type               9
+WearFlags          33
+Cost               65
+CostPerDay         65
+Affect             0 0
+Affect             0 0
+End
+#ITEM
+ObjId              28
+ContainedBy        -1
+Name               leather trousers~
+Description
+A pair of leather trousers lie here.~
+ShortDescr
+some leather trousers~
+ActionDescr
+(null)~
+VNum               1300
+EquippedAt         -1
+Values             1 0 0 0
+ExtraFlags         0
+Weight             5
+Timer              0
+BitVector          0
+Type               9
+WearFlags          33
+Cost               65
+CostPerDay         65
+Affect             0 0
+Affect             0 0
+End
+End
+#END_RENT

@@ -1,0 +1,30 @@
+#!/bin/bash
+
+NOW=`date "+%Y%m%d"`
+SQL="wiley/backups/${NOW}_wiley.sql.bz2"
+
+TAR="wiley/backups/${NOW}_wiley.tar.bz2"
+FILES='wiley/.git wiley/.gitignore wiley/README wiley/WileyREADME wiley/attic wiley/bin wiley/docs wiley/etc wiley/lib wiley/public_html wiley/src'
+EXCLUDE='--exclude=lib/log/[12r]* --exclude=wileymud* --exclude=*.[oa]'
+
+DISTTAR="wiley/backups/${NOW}_wiley_dist.tar.bz2"
+DISTFILES='wiley/README wiley/WileyREADME wiley/attic wiley/bin wiley/docs wiley/etc wiley/lib wiley/public_html wiley/src'
+DISTEXCLUDE='--exclude=.git* --exclude=lib/log/[12r]* --exclude=wileymud* --exclude=*.[oa] --exclude=attic --exclude=lib/imc/*.hist --exclude=lib/i3/*.hist --exclude=wiley/lib/ply/*/*.* --exclude=src/convert/output/*'
+
+cd /home
+
+echo -en "Staring Database Backup..."
+pg_dump wiley | bzip2 -9 >$SQL
+echo -en "done.\n"
+
+echo -en "Starting Stripped Backup..."
+tar $DISTEXCLUDE -jcf $DISTTAR $DISTFILES
+echo -en "done.\n"
+
+echo -en "Staring Full Backup..."
+tar $EXCLUDE -jcf $TAR $FILES
+echo -en "done.\n"
+
+cd /home/wiley
+ls -l backups/${NOW}*
+
