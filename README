@@ -1,3 +1,22 @@
+MHS note:
+
+Found on mudbytes.net uploaded by Cyric on Feb 24 2008.
+
+"UPDATE 2009.11.18: I updated the file so it now reflects the current state, more or less. As a result, it will require you have PostgreSQL and ECPG installed, although it's not much work to disable if you don't like it. It should also compile on 64-bit platforms.
+There *IS* a bug in the imc code somewhere, but I haven't tracked it down yet. That was a fairly ugly hack anyways, but it does seem to work.
+
+UPDATE 2009.12.05: Fixed ONE bug in IMC2, which I'm pretty sure is the previous one I was trying to find. Re-touched the build process again, hopefully it might work this time?
+
+UPDATE 2011.06.04: Changed to connect to I3, also included a more recent SQL dump.
+
+UPDATE 2011.07.01: Cleanup up the distribution a little bit to hopefully make things simpler.
+
+UPDATE 2014.04.06: Removed SQL code, fixed a few bugs, cleanup for newest gcc. A while back, I started using github to
+handle all my updates and revisions, so this is simply a direct tag release from that repository. I'll try to remember to upload a
+new snapshot every so often, but check github if you're curious.
+
+-Dread Quixadhal (quixadhal -at- a waste of time -dot- net)"
+
 Greetings!
 
 What you have here is the once popular MUD that ran for several
